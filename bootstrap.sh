@@ -2,7 +2,11 @@
 
 sudo apt-get update
 sudo apt-get -y install python-pip
-sudo apt-get install python-dev
-sudo apt-get install libxml2-dev libxslt1-dev zlib1g-dev
-sudo apt-get build-dep python3-lxml
-pip install datefinder
+sudo apt-get -y install libevent-dev python-dev
+sudo apt-get -y install libxml2-dev libxslt1-dev zlib1g-dev
+sudo apt-get -y build-dep python3-lxml
+sudo pip install datefinder
+sudo pip install urllib
+sudo pip install lxml
+sudo pip install regex
+
