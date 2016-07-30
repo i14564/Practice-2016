@@ -10,4 +10,4 @@ sudo pip install urllib
 sudo pip install lxml
 sudo pip install regex
 sudo pip install python-whois
-
+sudo pip install subbrute
