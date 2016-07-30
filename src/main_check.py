@@ -2,6 +2,7 @@ from checks import dates
 from checks import existance
 from checks import visitors
 from checks import whois_check
+from checks import subdomains
 
 
 
@@ -17,13 +18,23 @@ def main_check(url):
             print 'It is fake'
             return
 
+        subdomains_list = subdomains.check(url)
+        subdomain_visitors = 0
+        if (len(subdomains_list) == 0):
+            print 'site does not have subdomains'
+        else:
+            for subdomain in subdomains_list:
+                subdomain_visitors+=visitors.check(subdomain)['value']
+
+            print 'site has ' + str(len(subdomains_list)) + ' subdomais'
+
         dates_test = dates.check('http://' + url)
         visitors_test = visitors.check(url)
         if ( visitors_test['code'] and (dates_test['code'] == 1)):
             print 'Site have ' + str(visitors_test['value']) + ' unique visitors each month.'
             print 'Site have an entity written ' + str(dates_test['last_entity']) + ' days ago.'
             print 'This site is not fake'
-        elif (visitors_test['value'] >= 10000):
+        elif (visitors_test['value'] >= 10000 + subdomain_visitors):
            print 'Site have ' + str(visitors_test['value']) + ' unique visitors each month. It is not fake'
         elif ( visitors_test['value'] >= 3000):
             print 'Site have ' + str(visitors_test['value']) + ' unique visitors each month. It may be not fake'
